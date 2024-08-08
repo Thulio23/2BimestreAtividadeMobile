@@ -1,17 +1,18 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../styles/globalstyles';
+import { colors } from '../../styles/globalstyles'
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     },
+
     title: {
         fontSize: 30,
         fontWeight: "bold",
         textAlign: 'center',
-        color: colors.black
+        color: colors.black,
     },
     formRow: {
         margin: 10,
@@ -21,14 +22,9 @@ export const styles = StyleSheet.create({
         borderColor: colors.primary,
         borderRadius: 5
     },
-    icon: {
-        fontSize: 28,
-        color: colors.primary,
-        padding: 5
-    },
     input: {
         fontSize: 18,
         padding: 10,
         width: "70%"
-    },
+    }
 })

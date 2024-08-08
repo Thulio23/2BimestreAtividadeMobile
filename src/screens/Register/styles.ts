@@ -18,12 +18,12 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         borderWidth: 0.7,
-        borderColor: colors.primary,
+        borderColor: colors.secondary,
         borderRadius: 5
     },
     icon: {
         fontSize: 28,
-        color: colors.primary,
+        color: colors.secondary,
         padding: 5
     },
     input: {

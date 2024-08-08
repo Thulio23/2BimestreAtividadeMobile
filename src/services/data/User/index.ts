@@ -9,12 +9,12 @@ export interface IUser {
 export interface IResponseUser {
     name: string
     email: string
-    creat_at: string
+    creeated_at: string
     updated_at: string
     id: number
 }
 
-export interface IAuthenticated{
+export interface IAuthenticated {
     user: IResponseUser
     token: {
         token: string

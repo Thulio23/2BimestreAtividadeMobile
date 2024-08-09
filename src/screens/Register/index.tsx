@@ -19,7 +19,6 @@ export function Register({ navigation }: LoginTypes) {
     const { setLoading } = useAuth()
     async function handleRegister() {
         if (data?.email && data.name && data.password) {
-            //setLoading(true)
             try {
                 const response = await apiUser.register(data)
                 Alert.alert(`${response.data.name} cadastrado!!!`)

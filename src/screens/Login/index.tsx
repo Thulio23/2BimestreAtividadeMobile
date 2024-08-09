@@ -17,7 +17,6 @@ export function Login({ navigation }: LoginTypes) {
     const { signIn, setLoading } = useAuth()
     async function handleSignIn() {
         if (data?.email && data.password) {
-            //setLoading(true)
             try{
                 await signIn(data)
             }catch (error) {

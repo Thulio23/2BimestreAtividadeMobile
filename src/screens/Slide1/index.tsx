@@ -5,7 +5,6 @@ import CustomButton from '../../components/CustomButton';
 
 export function Slide1() {
   const handlePress = () => {
-    // Lógica a ser executada ao pressionar o botão
     console.log('Botão pressionado!');
   };
 
@@ -19,19 +18,19 @@ export function Slide1() {
       <View style={styles.table}>
         <View style={styles.row}>
           <Text style={styles.text}>Data</Text>
-          <Text style={styles.text}>Atividade</Text>
+          <Text style={styles.text}>Aula</Text>
           <Text style={styles.text}>Checkin</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.cell}>data</Text>
-          <Text style={styles.cell}>treino</Text>
+          <Text style={styles.cell}>Data</Text>
+          <Text style={styles.cell}>Atividade</Text>
           <View style={styles.botao}>
             <CustomButton title="Checkin" onPress={handlePress} />
           </View>
         </View>
         <View style={styles.row}>
-          <Text style={styles.cell}>data</Text>
-          <Text style={styles.cell}>amistoso</Text>
+          <Text style={styles.cell}>Data</Text>
+          <Text style={styles.cell}>Prova</Text>
           <View style={styles.botao}>
             <CustomButton title="Checkin" onPress={handlePress} />
           </View>

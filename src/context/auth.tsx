@@ -20,21 +20,21 @@ export interface IProvider {
 }
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData)
- 
-const AuthProvider = ({children}: IProvider) => {
+
+const AuthProvider = ({ children }: IProvider) => {
     const [auth, setAuth] = useState<IAuthenticated>({} as IAuthenticated)
     const [loading, setLoading] = useState(false)
 
-    const signIn = useCallback(async ({email, password}: IUser) => {
-        const response = await apiUser.login({email, password})
+    const signIn = useCallback(async ({ email, password }: IUser) => {
+        const response = await apiUser.login({ email, password })
         const user = response.data
         api.defaults.headers.common.Authorization = `Bearer ${user.token ? user.token.token : ""}`
-        setAuth({...user})
-        await AsyncStorage.setItem("user", JSON.stringify({...user}))
+        setAuth({ ...user })
+        await AsyncStorage.setItem("user", JSON.stringify({ ...user }))
     }, [])
 
     const removeLocalStorage = useCallback(async () => {
-            await AsyncStorage.removeItem("user")
+        await AsyncStorage.removeItem("user")
     }, [])
 
     const signOut = useCallback(async () => {
@@ -45,10 +45,10 @@ const AuthProvider = ({children}: IProvider) => {
 
     const loadUserStorageData = useCallback(async () => {
         const user = await AsyncStorage.getItem("user")
-        
+
         if (user) {
             const userParse = JSON.parse(user) as IAuthenticated
-            if (isAfter(parseISO (userParse.token.expires_at), new Date())) {
+            if (isAfter(parseISO(userParse.token.expires_at), new Date())) {
                 api.defaults.headers.common.Authorization = `Bearer ${userParse.token}`
                 setAuth({ ...userParse })
                 return true
@@ -60,7 +60,6 @@ const AuthProvider = ({children}: IProvider) => {
             return false
         }
     }, [])
-
     useEffect(() => {
         loadUserStorageData()
     }, [])
@@ -79,5 +78,5 @@ const AuthProvider = ({children}: IProvider) => {
         </AuthContext.Provider>
     )
 }
-        
+
 export { AuthProvider, AuthContext }

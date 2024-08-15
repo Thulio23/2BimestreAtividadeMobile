@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { MessageTypes } from "../../navigation/message.navigation";
-import { Alert, KeyboardAvoidingView, Text, TextInput, View } from "react-native";
-import { colors } from "../../styles/globalstyles";
-import CustomButton from "../../components/CustomButton";
+import { Alert, KeyboardAvoidingView, Text, TextInput, View } from "react-native"
+import { colors } from "../../styles/colors";
+import { ComponentButtonInterface } from "../../components";
 import { IMessage } from "../../services/data/Message";
 import { useAuth } from "../../hook/auth";
 import { AxiosError } from "axios";
@@ -19,8 +19,9 @@ export function CadMessage({ navigation }: MessageTypes) {
         if (data?.title && data.message) {
             setLoading(true)
             try {
+                console.log(data)
                 await apiMessage.store(data)
-                Alert.alert("Mensagem cadastrada!!!")
+                Alert.alert("Mensagen cadastrada!!!")
                 navigation.navigate("Message")
             } catch (error) {
                 const err = error as AxiosError
@@ -29,34 +30,34 @@ export function CadMessage({ navigation }: MessageTypes) {
             }
             setLoading(false)
         } else {
-            Alert.alert("Preencha todos os campos!!!");
+            Alert.alert("Preencha todos os campos!");
         }
     }
     return (
-        <View style={styles.container}>
+        <View style={styles.container} >
             <KeyboardAvoidingView>
-                <Text style={styles.title}>Cadastrar Mensagem</Text>
-                <View style={styles.formRow}>
+                <Text style={styles.title}> Cadastrar Mensagem</Text >
+                <View style={styles.formRow} >
                     <TextInput
                         placeholderTextColor={colors.third}
                         style={styles.input}
-                        placeholder="Título"
+                        placeholder="Titulo"
                         onChangeText={(i) => handleChange({ title: i })}
                     />
-                </View>
-                <View style={styles.formRow}>
+                </View >
+                <View style={styles.formRow} >
                     <TextInput
                         placeholderTextColor={colors.third}
                         style={styles.input}
                         placeholder="Mensagem"
-                        multiline={true}
-                        numberOfLines={4}
-                        onChangeText={(i) => handleChange({ message: i})}
+                        onChangeText={(i) => handleChange({ message: i })}
                     />
                 </View>
-                <CustomButton title='Enviar' type='primary' onPressI={handleCadMessage} />
-                <CustomButton title='Voltar' type='primary' onPressI={handleCadMessage} />
+                <ComponentButtonInterface title='Enviar' type='primary'
+                    onPressI={handleCadMessage} />
+                <ComponentButtonInterface title='Voltar' type='secondary'
+                    onPressI={() => navigation.navigate("Message")} />
             </KeyboardAvoidingView>
         </View>
     )
-    }
+}

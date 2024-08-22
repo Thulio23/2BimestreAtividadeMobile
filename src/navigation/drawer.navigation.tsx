@@ -31,6 +31,13 @@ export function DrawerNavigation() {
                     ),
                 }}
             />
+            <Drawer.Screen name="Camera" component={ ScreenCamera }
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                    <Ionicons name="camera" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer.Navigator>
     )
 }

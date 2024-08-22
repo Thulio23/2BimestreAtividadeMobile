@@ -26,8 +26,7 @@ export function Register({navigation} : LoginTypes) {
                 navigation.navigate("Login")
             }catch (error){
              const err= error as AxiosError
-             const msg = err.response?.data as string
-             Alert.alert(msg)
+             console.log(err.response?.data)
             }
             setLoading(false)
          }else{
@@ -61,7 +60,7 @@ export function Register({navigation} : LoginTypes) {
                     style={styles.input}
                     placeholder = "Email"
                     keyboardType = "email-address"
-                    autoCapitalize = "nome"
+                    autoCapitalize="none"
                     onChangeText = {(i) => handleChange({ email: i })}
                     />
             </View>
@@ -72,7 +71,7 @@ export function Register({navigation} : LoginTypes) {
             style = {styles.input}
             placeholder = "Senha" 
             secureTextEntry = {true}
-            autoCapitalize="nome"
+            autoCapitalize="none"
             onChangeText={(i) => handleChange ({password: i})}
             />
             </View>

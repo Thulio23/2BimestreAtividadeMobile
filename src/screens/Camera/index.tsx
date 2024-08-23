@@ -5,7 +5,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { styles } from './styles'; 
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../../styles/colors'; 
-import { ComponentLoading } from '../../components';
+import { Loading } from '../../components/Loading';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export function Camera() {
@@ -16,7 +16,7 @@ export function Camera() {
   const [photo, setPhoto] = useState<CameraCapturedPicture>();
 
   if (!permission) {
-    return <ComponentLoading />;
+    return <Loading />;
   }
 
   if (!permission.granted) {
@@ -67,10 +67,15 @@ export function Camera() {
   return(
     <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing} ref={ref}>
-        <View style={styles.headerCamera}>
-          
+        <View style={styles.headerCamera}> 
+          <TouchableOpacity onPress={toggleCameraFacing}>
+            <AntDesign name='retweet' size={70} color={colors.black}/>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.footerCamera}>
+          <TouchableOpacity onPress={takePicture} style={styles.ball}/>
         </View>
       </CameraView>
     </View>
-  )
+  );
 }

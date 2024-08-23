@@ -1,18 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { Button, Text, View, Alert } from 'react-native';
+import { Button, Text, View, Alert, ImageBackground } from 'react-native';
 import { CameraView, CameraType, useCameraPermissions, CameraCapturedPicture } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import { styles } from './styles'; 
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../../styles/colors'; 
 import { ComponentLoading } from '../../components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export function Camera() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [permissionMedia, requestPermissionMedia] = MediaLibrary.usePermissions();
   const ref = useRef<CameraView>(null);
-  const [photo, setPhoto] = useState<CameraCapturedPicture>;
+  const [photo, setPhoto] = useState<CameraCapturedPicture>();
 
   if (!permission) {
     return <ComponentLoading />;
@@ -27,7 +28,7 @@ export function Camera() {
     );
   }
 
-  async function toggleCameraFacing() {
+  function toggleCameraFacing() {
     setFacing(current => (current === 'back' ? 'front' : 'back'));
   }
 
@@ -39,28 +40,37 @@ export function Camera() {
   }
 
   async function savePhoto() {
-    if (permissionMedia.status !== 'granted') {
+    if (permissionMedia!.status !== 'granted') {
       await requestPermissionMedia();
     }
-    if (permissionMedia.status === 'granted' && photo) {
+    if (permissionMedia!.status === 'granted' && photo) {
       const asset = await MediaLibrary.createAssetAsync(photo.uri);
-      await MediaLibrary.createAlbumAsync('Images', asset, false);
+      MediaLibrary.createAlbumAsync('Images', asset, false);
       Alert.alert('Imagem salva com sucesso!');
     }
   }
+  if (photo) {
+    return (
+        <ImageBackground source={{uri: photo.uri}} style={styles.camera}>
+          <View style={styles.headerSave}>
+            <TouchableOpacity onPress={() => setPhoto(undefined)}>
+              <AntDesign name='back' size={70} color={colors.black}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={savePhoto}>
+              <AntDesign name='save' size={70} color={colors.black}/>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+    )
+  }
 
-  return (
+  return(
     <View style={styles.container}>
-      <CameraView
-        style={styles.camera}
-        type={facing}
-        ref={ref}
-      />
-      <View style={styles.buttonContainer}>
-        <Button onPress={toggleCameraFacing} title="Flip Camera" />
-        <Button onPress={takePicture} title="Take Picture" />
-        {photo && <Button onPress={savePhoto} title="Save Picture" />}
-      </View>
+      <CameraView style={styles.camera} facing={facing} ref={ref}>
+        <View style={styles.headerCamera}>
+          
+        </View>
+      </CameraView>
     </View>
-  );
+  )
 }
